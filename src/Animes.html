@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Anime Recommendations</title>
+</head>
+<body>
+    <div class="bg-gray-900 p-20 min-h-screen flex flex-col justify-center items-center">
+        <h1 class="text-4xl text-white font-bold mb-6 text-center">Anime Recommendations</h1>
+        <form id="preferencesForm" class="mb-8">
+            <label for="genre" class="block text-lg font-medium text-purple-600 mb-2">Choose a genre:</label>
+            <select id="genre" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4">
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Romance">Romance</option>
+                <option value="Drama">Drama</option>
+                <option value="Fantasy">Fantasy</option>
+            </select>
+            <button type="submit" class="w-full bg-purple-500 text-white p-2 rounded-md">Get Recommendations</button>
+        </form>
+        <div id="animeList" class="space-y-4"></div>
+    </div>
+
+    <script src="Fetch.js"></script>
+    <script>
+        document.getElementById('preferencesForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const genre = document.getElementById('genre').value;
+            fetchAnimes(genre); // Call the fetchAnimes function
+        });
+    </script>
+</body>
+</html>
