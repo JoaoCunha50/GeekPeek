@@ -2,7 +2,7 @@
 
 A website with a Recommendation Engine based on some public API's
 
-## Link 
+### Link 
 Working on it ... 
 
-## Have Fun !!
+### Have Fun !!
