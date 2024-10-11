@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <title>Anime Recommendations</title>
+    <link rel="icon" href="../assets/popcorn.png" type="image/x-icon"> <!-- Add this line for favicon -->
 </head>
 <body>
-    <div class="bg-gray-900 p-20 min-h-screen flex flex-col items-center">
+    <div style="background-color:#331E36;" class="bg-gray-900 p-20 min-h-screen flex flex-col items-center">
+        <a href="index.html" class="absolute top-5 left-5">
+            <i class="fas fa-arrow-left text-2xl" style="color: #A06CD5;"></i> <!-- Set the icon color here -->
+        </a>
         <h1 class="text-4xl text-white font-bold mb-6 text-center">Anime Recommendations</h1>
         <form id="preferencesForm" class="mb-8">
             <label for="genre" class="block text-lg font-medium text-purple-600 mb-2">Choose a genre:</label>
@@ -19,7 +24,7 @@
                 <option value="Fantasy">Fantasy</option>
                 <option value="Sci-Fi">Sci-Fi</option>
             </select>
-            <button type="submit" class="w-full bg-purple-500 text-white p-2 rounded-md">Get Recommendations</button>
+            <button style="background-color: #A06CD5; color: #f2d0f1" type="submit" class="w-full font-bold bg-purple-500 text-white p-2 rounded-md">Get Recommendations</button>
         </form>
         <div id="animeList" class="space-y-4"></div>
     </div>

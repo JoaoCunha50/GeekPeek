@@ -100,30 +100,65 @@ function fetchAnimes(genre) {
     });
 }
 
-
-
-// Function to fetch movies
 function fetchMovies(genre) {
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=${genre}`) // Use your own API key
-        .then(response => response.json())
+    const apiKey = 'ed674c0f'; // Your OMDb API key
+    fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${genre}&type=movie`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            const movies = data.results; // Movies from TMDB API
+            const movies = data.Search; // Movies from OMDb API
             let movieListHTML = '';
 
-            // Loop through each movie and create HTML to display it
-            movies.forEach(movie => {
-                movieListHTML += `
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-gray-800">${movie.title}</h3>
-                        <p class="text-gray-600">Rating: ${movie.vote_average}</p>
-                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="w-32 rounded-md">
-                    </div>`;
-            });
+            if (movies && movies.length > 0) {
+                // Loop through each movie and create the HTML to display it
+                movies.forEach(movie => {
+                    // Fetch detailed data for each movie using imdbID
+                    fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(details => {
+                            // Check if details are available
+                            if (details.Response === 'True') {
+                                const description = details.Plot?.length > 100 
+                                    ? details.Plot.substring(0, 100) + '...' 
+                                    : details.Plot || 'No description available';
 
-            // Inject the movie list into the page
-            document.getElementById('movieList').innerHTML = movieListHTML;
+                                movieListHTML += `
+                                    <div class="flex items-start p-5 bg-gray-800 rounded-lg shadow-md mb-4 max-w-4xl mx-auto">
+                                        <div class="flex-1 mr-4">
+                                            <h3 class="text-2xl font-semibold text-gray-100 mb-2">${details.Title}</h3>
+                                            <p class="text-yellow-500 font-medium">Rating: ${details.imdbRating || 'N/A'}</p>
+                                            <p class="text-gray-500 text-sm mt-2">${description}</p>
+                                            <p class="text-gray-600 mt-1">Year: ${details.Year}</p>
+                                        </div>
+                                        <img src="${details.Poster}" alt="${details.Title}" class="w-24 h-auto rounded-md">
+                                    </div>`;
+                            } else {
+                                movieListHTML += `<p class="text-gray-600">Details not found for "${movie.Title}".</p>`;
+                            }
+
+                            // Inject the movie list into the page once all details are fetched
+                            document.getElementById('movieList').innerHTML = movieListHTML;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching movie details:', error);
+                        });
+                });
+            } else {
+                movieListHTML = '<p class="text-gray-500">No movies found for this genre.</p>';
+                document.getElementById('movieList').innerHTML = movieListHTML;
+            }
         })
         .catch(error => {
             console.error('Error fetching movie data:', error);
+            document.getElementById('movieList').innerHTML = '<p class="text-red-500">Error fetching movie data.</p>';
         });
 }
