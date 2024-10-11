@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Font Awesome -->
+    <title>GeekPeek</title>
+    <link rel="icon" href="../assets/popcorn.png" type="image/x-icon"> <!-- Add this line for favicon -->
+</head>
+
+<body>
+    <!-- Top Navbar -->
+    <nav style="background-color: rgba(88, 59, 117, 0.801)"
+        class="w-full py-4 px-8 fixed top-0 left-0 right-0 z-10 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo or Site Name with Header Icon -->
+            <a href="#" class="text-2xl font-bold text-white flex items-center">
+                <img src="../assets/popcorn.png" alt="GeekPeek Logo" class="w-8 h-8 mr-2"> <!-- Icon from header -->
+                GeekPeek
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="space-x-6">
+                <a href="index.html" class="text-white text-lg hover:text-pink-300 transition duration-300">Home</a>
+                <!-- Active link style -->
+                <a href="#" class="text-lg text-pink-300 font-extrabold">About Us</a>
+                <a href="FAQ.html" class="text-white text-lg hover:text-pink-300 transition duration-300">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="container" style="background-color:#331E36;"
+        class="relative pt-24 p-20 min-h-screen flex flex-col justify-center items-center transition-transform duration-500 ease-in-out">
+        <h1 style="color: #E2CFEA;" class="text-5xl text-white font-bold mb-2 text-center">
+            About <span style="color: #A06CD5; font-weight: bolder;">Us!</span>
+        </h1>
+        <h2 style="color: #E2CFEA;" class="text-2xl text-white font-bold mb-2 text-center">Meet the team</h2>
+
+        <!-- Two Divs: One with an image to the left, and another with an image to the right -->
+
+        <!-- Top Div with image on the left -->
+        <div class="flex items-center w-full mt-12 mb-8">
+            <img src="../assets/Manecas.png" alt="Image Left"
+                class="w-1/4 rounded-lg shadow-md border-2 border-gray-300 mr-4">
+            <div class="text-white w-2/3 pl-4">
+                <h3 class="text-5xl font-bold mb-4">
+                    <span style="color: #A06CD5; font-weight: bolder;">João</span> Cunha
+                </h3>
+                <p class="text-lg">Hi! I’m João Cunha, a third-year Software Engineering student at the University of
+                    Minho. I’m passionate about football tactics and love music. Always eager to learn and take on new
+                    challenges, I’m excited to grow on my journey!</p>
+
+                <!-- Social Media Icons -->
+                <div class="flex space-x-4 mt-4"> <!-- Flex container for icons -->
+                    <a href="https://github.com/joaocunha50" target="_blank" class="text-white hover:text-gray-300">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/joaocunha50/" target="_blank"
+                        class="text-white hover:text-gray-300">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="mailto:joaomanuelmachadodacunha@gmail.com" class="text-white hover:text-gray-300">
+                        <i class="fas fa-envelope fa-lg"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joaocunha.50/" target="_blank"
+                        class="text-white hover:text-gray-300">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Div with image on the right -->
+        <div class="flex items-center w-full mb-8">
+            <div class="text-white w-2/3 p-8 text-right"> <!-- Text aligned to the right -->
+                <h3 class="text-5xl font-bold mb-4">
+                    João <span style="color: #A06CD5; font-weight: bolder;">Sá</span>
+                </h3>
+                <p class="text-lg">
+                    Hey there, I’m João Sá, and I’m currently a third-year Software Engineering student at the
+                    University of Minho.
+                    I’m a football enthusiast who loves the tactics of the game, always eager to learn something new,
+                    especially about cybersecurity and AI. I’m always looking for a challenge that helps me improve!
+                </p>
+
+                <!-- Social Media Icons aligned to the right -->
+                <div class="flex justify-end space-x-4 mt-4"> <!-- Flex container for icons -->
+                    <a href="https://github.com/joaosa24" target="_blank" class="text-white hover:text-gray-300">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jo%C3%A3o-s%C3%A1-b682a0215/" target="_blank"
+                        class="text-white hover:text-gray-300">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="mailto:joaopedrorsa@gmail.com" class="text-white hover:text-gray-300">
+                        <i class="fas fa-envelope fa-lg"></i>
+                    </a>
+                    <a href="https://www.instagram.com/joaosa.24/" target="_blank"
+                        class="text-white hover:text-gray-300">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+            <img src="../assets/Sa.png" alt="Image Right"
+                class="w-1/4 rounded-lg shadow-md border-2 border-gray-300 ml-4"> <!-- Margin-left for spacing -->
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
+            <p>Made by Manecas and Sá with 🩶</p>
+        </footer>
+    </div>
+
+    <script>
+        function Books() {
+            window.location.href = "Books.html";
+        }
+
+        function Movies() {
+            window.location.href = "Movies.html";
+        }
+
+        function Animes() {
+            window.location.href = "Animes.html";
+        }
+    </script>
+</body>
+
+</html>
