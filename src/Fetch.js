@@ -101,7 +101,7 @@ function fetchAnimes(genre) {
 }
 
 function fetchMovies(genre) {
-    const apiKey = 'ed674c0f'; // Your OMDb API key
+    const apiKey = 'ed674c0f'; // A tua chave API da OMDb
     fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${genre}&type=movie`)
         .then(response => {
             if (!response.ok) {
@@ -110,13 +110,12 @@ function fetchMovies(genre) {
             return response.json();
         })
         .then(data => {
-            const movies = data.Search; // Movies from OMDb API
-            let movieListHTML = '';
+            const movies = data.Search; // Filmes da OMDb API
+            let movieDetailsList = [];
 
             if (movies && movies.length > 0) {
-                // Loop through each movie and create the HTML to display it
-                movies.forEach(movie => {
-                    // Fetch detailed data for each movie using imdbID
+                // Loop para obter os detalhes de cada filme
+                let fetchDetailsPromises = movies.map(movie => 
                     fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`)
                         .then(response => {
                             if (!response.ok) {
@@ -125,40 +124,49 @@ function fetchMovies(genre) {
                             return response.json();
                         })
                         .then(details => {
-                            // Check if details are available
                             if (details.Response === 'True') {
-                                const description = details.Plot?.length > 100 
-                                    ? details.Plot.substring(0, 100) + '...' 
-                                    : details.Plot || 'No description available';
-
-                                movieListHTML += `
-                                    <div class="flex items-start p-5 bg-gray-800 rounded-lg shadow-md mb-4 max-w-4xl mx-auto">
-                                        <div class="flex-1 mr-4">
-                                            <h3 class="text-2xl font-semibold text-gray-100 mb-2">${details.Title}</h3>
-                                            <p class="text-yellow-500 font-medium">Rating: ${details.imdbRating || 'N/A'}</p>
-                                            <p class="text-gray-500 text-sm mt-2">${description}</p>
-                                            <p class="text-gray-600 mt-1">Year: ${details.Year}</p>
-                                        </div>
-                                        <img src="${details.Poster}" alt="${details.Title}" class="w-24 h-auto rounded-md">
-                                    </div>`;
-                            } else {
-                                movieListHTML += `<p class="text-gray-600">Details not found for "${movie.Title}".</p>`;
+                                // Adicionar os detalhes do filme à lista
+                                movieDetailsList.push(details);
                             }
-
-                            // Inject the movie list into the page once all details are fetched
-                            document.getElementById('movieList').innerHTML = movieListHTML;
                         })
                         .catch(error => {
-                            console.error('Error fetching movie details:', error);
-                        });
+                            console.error('Erro ao obter os detalhes do filme:', error);
+                        })
+                );
+
+                // Esperar que todas as promessas sejam resolvidas
+                Promise.all(fetchDetailsPromises).then(() => {
+                    // Ordenar os filmes pelo rating (rating decrescente)
+                    movieDetailsList.sort((a, b) => parseFloat(b.imdbRating) - parseFloat(a.imdbRating));
+
+                    let movieListHTML = '';
+                    // Criar o HTML para exibir a lista de filmes
+                    movieDetailsList.forEach(details => {
+                        const description = details.Plot?.length > 100 
+                            ? details.Plot.substring(0, 100) + '...' 
+                            : details.Plot || 'Sem descrição disponível';
+
+                        movieListHTML += `
+                            <div class="flex items-start p-5 bg-gray-800 rounded-lg shadow-md mb-4 max-w-4xl mx-auto">
+                                <div class="flex-1 mr-4">
+                                    <h3 class="text-2xl font-semibold text-gray-100 mb-2">${details.Title}</h3>
+                                    <p class="text-yellow-500 font-medium">Rating: ${details.imdbRating || 'N/A'}</p>
+                                    <p class="text-gray-500 text-sm mt-2">${description}</p>
+                                    <p class="text-gray-600 mt-1">Ano: ${details.Year}</p>
+                                </div>
+                                <img src="${details.Poster}" alt="${details.Title}" class="w-24 h-auto rounded-md">
+                            </div>`;
+                    });
+
+                    // Injectar a lista de filmes na página
+                    document.getElementById('movieList').innerHTML = movieListHTML;
                 });
             } else {
-                movieListHTML = '<p class="text-gray-500">No movies found for this genre.</p>';
-                document.getElementById('movieList').innerHTML = movieListHTML;
+                document.getElementById('movieList').innerHTML = '<p class="text-gray-500">Nenhum filme encontrado para este género.</p>';
             }
         })
         .catch(error => {
-            console.error('Error fetching movie data:', error);
-            document.getElementById('movieList').innerHTML = '<p class="text-red-500">Error fetching movie data.</p>';
+            console.error('Erro ao obter os dados dos filmes:', error);
+            document.getElementById('movieList').innerHTML = '<p class="text-red-500">Erro ao obter os dados dos filmes.</p>';
         });
 }
