@@ -8,6 +8,6 @@ using HTML, JavaScript, and a Tailwind CSS stylesheet.
 - [GoogleBooks API](https://developers.google.com/books)
 
 ### Link 
-[GeekPeek](https://geekpeek.netlify.app/
+[GeekPeek](https://geekpeek.netlify.app/)
 
 ### Have Fun !!
